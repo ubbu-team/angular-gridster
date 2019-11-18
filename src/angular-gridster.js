@@ -345,17 +345,17 @@
 					item.oldRow = item.row = row;
 					item.oldColumn = item.col = column;
 
-					this.moveOverlappingItems(item, ignoreItems);
+					if (this.moveOverlappingItems(item, ignoreItems)) {
+						if (!this.grid[row]) {
+							this.grid[row] = [];
+						}
+						this.grid[row][column] = item;
 
-					if (!this.grid[row]) {
-						this.grid[row] = [];
+						if (this.movingItem === item) {
+							this.floatItemUp(item);
+						}
+						this.layoutChanged();
 					}
-					this.grid[row][column] = item;
-
-					if (this.movingItem === item) {
-						this.floatItemUp(item);
-					}
-					this.layoutChanged();
 				};
 
 				/**
@@ -400,7 +400,16 @@
 						ignoreItems
 					);
 
-					this.moveItemsLeftOrRight(overlappingItems, item.col, item.row, ignoreItems);
+					var overlappingMovableItems = overlappingItems.filter(function(e) {
+						return !e.$element[0].hasAttribute('gridster-no-drag');
+					});
+
+					if (overlappingMovableItems.length === 0 && overlappingItems.length > 0) {
+						return false;
+					} else {
+						this.moveItemsLeftOrRight(overlappingMovableItems, item.col, item.row, ignoreItems);
+						return true;
+					}
 				};
 
 				/**
