@@ -489,6 +489,7 @@
 							}
 						}
 					}
+					return [this.grid.length, this.columns];
 				};
 
 				/**
