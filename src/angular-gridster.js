@@ -1528,7 +1528,7 @@
 							}
 						}
 
-						if (gridster.pushing !== false || !hasItemsInTheWay) {
+						if (hasItemsInTheWay) {
 							item.row = row;
 							item.col = col;
 						}
@@ -1558,7 +1558,7 @@
 						$el.removeClass('gridster-item-moving');
 						var row = Math.min(gridster.pixelsToRows(elmY), gridster.maxRows - 1);
 						var col = Math.min(gridster.pixelsToColumns(elmX), gridster.columns - 1);
-						if (gridster.pushing !== false || gridster.getItems(row, col, item.sizeX, item.sizeY, item).length === 0) {
+						if (gridster.getItems(row, col, item.sizeX, item.sizeY, item).length !== 0) {
 							item.row = row;
 							item.col = col;
 						}
