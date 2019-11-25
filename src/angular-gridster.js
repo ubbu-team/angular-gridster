@@ -1487,7 +1487,9 @@
 						var row = Math.min(gridster.pixelsToRows(elmY), gridster.maxRows - 1);
 						var col = Math.min(gridster.pixelsToColumns(elmX), gridster.columns - 1);
 
-						var itemsInTheWay = gridster.getItems(row, col, item.sizeX, item.sizeY, item);
+						var itemsInTheWay = gridster.getItems(row, col, item.sizeX, item.sizeY, item).filter(function(e) {
+							return !e.$element[0].hasAttribute('gridster-no-drag');
+						});
 						var hasItemsInTheWay = itemsInTheWay.length !== 0;
 
 						if (gridster.swapping === true && hasItemsInTheWay) {
@@ -1558,7 +1560,9 @@
 						$el.removeClass('gridster-item-moving');
 						var row = Math.min(gridster.pixelsToRows(elmY), gridster.maxRows - 1);
 						var col = Math.min(gridster.pixelsToColumns(elmX), gridster.columns - 1);
-						if (gridster.getItems(row, col, item.sizeX, item.sizeY, item).length !== 0) {
+						if (gridster.getItems(row, col, item.sizeX, item.sizeY, item).filter(function(e) {
+								return !e.$element[0].hasAttribute('gridster-no-drag');
+							}).length !== 0) {
 							item.row = row;
 							item.col = col;
 						}
